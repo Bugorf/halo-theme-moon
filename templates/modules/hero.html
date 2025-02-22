@@ -1,4 +1,4 @@
-<section th:fragment="hero(isHome, cover, title)">
+<section class="hidden sm:block" th:fragment="hero(isHome, cover, title)">
   <div
     th:if="${theme.config.layout.header_widget != 'none'} and ${isHome}"
     class="bg-cover bg-center bg-no-repeat"
@@ -57,4 +57,8 @@
       </header>
     </div>
   </th:block>
+</section>
+
+<section class="sm:hidden" th:fragment="hero(isHome, cover, title)">
+  <div th:replace="~{modules/widgets/profile.html}"></div>
 </section>

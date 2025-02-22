@@ -1,25 +1,21 @@
 apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
-  name: theme-earth
-  annotations:
-    # Add supports for Halo App Store
-    # https://halo.run/store/apps/app-KgWqR
-    "store.halo.run/app-id": "app-KgWqR"
+  name: halo-theme-moon
 spec:
-  displayName: Earth
+  displayName: Moon
   author:
-    name: Halo
-    website: https://www.halo.run
-  description: Default theme for Halo 2.0
-  logo: https://www.halo.run/logo
-  homepage: https://www.halo.run/store/apps/app-KgWqR
-  repo: https://github.com/halo-dev/theme-earth
-  issues: https://github.com/halo-dev/theme-earth/issues
-  settingName: "theme-earth-setting"
-  configMapName: "theme-earth-configMap"
-  version: 1.12.3
+    name: Bugorf
+    website: https://alloworld.me
+  description: 基于halo默认主题earth, 参考其他主题的优点, 赋予该主题新的特性。
+  logo: /themes/halo-theme-moon/assets/images/moon_bg.png
+  homepage: https://github.com/Bugorf/halo-theme-moon
+  repo: https://github.com/Bugorf/halo-theme-moon.git
+  issues: https://github.com/Bugorf/halo-theme-moon/issues
+  settingName: "halo-theme-moon-setting"
+  configMapName: "halo-theme-moon-configMap"
+  version: 1.0.0
   requires: ">=2.20.0"
   license:
     - name: "GPL-3.0"
-      url: "https://github.com/halo-dev/theme-earth/blob/main/LICENSE"
+      url: "https://github.com/Bugorf/halo-theme-moon/blob/main/LICENSE"
