@@ -150,16 +150,6 @@
         th:classappend="${theme.config.post.content_style == 'github' ? 'markdown-body' : 'tailwind-typography'}"
         th:utext="${post.content.content}"
       ></article>
-      <!-- TODO: 增加设置项，实现自定义内容-->
-      <div class="mt-6 rounded-xl bg-white p-4 shadow-lg dark:bg-gray-900">
-        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
-          - 作者: <a th:href="@{${post.owner.permalink}}" th:text="${post.owner.displayName}"></a>
-        </p>
-        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">- 原文链接: https://example.com/article</p>
-        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
-          - 本文采用 xx授权协议发布, 您可以在遵循协议的情况下进行转载、修改或使用。
-        </p>
-      </div>
 
       <div
         class="mt-10 flex flex-col sm:flex-row sm:justify-between"
@@ -190,6 +180,18 @@
           </a>
         </div>
       </div>
+
+      <!-- TODO: 增加设置项，实现自定义内容-->
+      <div class="mt-6 rounded-xl bg-white p-4 shadow-lg dark:bg-gray-900">
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
+          - 作者: <a th:href="@{${post.owner.permalink}}" th:text="${post.owner.displayName}"></a>
+        </p>
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">- 原文链接: https://example.com/article</p>
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
+          - 本文采用 xx授权协议发布, 您可以在遵循协议的情况下进行转载、修改或使用。
+        </p>
+      </div>
+
       <hr th:if="${haloCommentEnabled}" class="my-10 dark:border-slate-700" />
       <div id="comment" th:if="${haloCommentEnabled}">
         <h2 class="mb-2 text-base font-medium text-gray-900 dark:text-slate-50" th:text="#{common.comment}"></h2>
