@@ -5,14 +5,16 @@
   <div class="flex flex-col items-center justify-center gap-4">
     <div class="relative mt-8 h-24 w-24">
       <img
-        th:src="${not #strings.isEmpty(theme.config.sidebar.profile.logo) ? theme.config.sidebar.profile.logo : '/themes/halo-theme-moon/assets/images/default_avatar.jpeg'}"
+        th:src="${not #strings.isEmpty(theme.config.global.profile.logo) ? theme.config.global.profile.logo : '/themes/halo-theme-moon/assets/images/default_avatar.jpeg'}"
         th:alt="${site.title}"
         width="96"
         height="96"
         class="size-full rounded-full object-cover"
       />
     </div>
-    <div class="mb-3"><h1 class="text-2xl font-medium dark:text-slate-50" th:text="${site.title}"></h1></div>
+    <div class="mb-3">
+      <h1 class="text-2xl font-medium dark:text-slate-50" th:text="${theme.config.global.profileName}"></h1>
+    </div>
     <div th:if="${not #strings.isEmpty(site.subtitle)}" class="mb-3">
       <p class="text-center text-sm text-gray-700 dark:text-slate-300" th:text="${site.subtitle}"></p>
     </div>

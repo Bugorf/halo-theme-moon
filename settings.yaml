@@ -73,16 +73,19 @@ spec:
     - group: global
       label: 全局
       formSchema:
-        - $formkit: select
-          name: logo_type
-          id: logo_type
-          label: 菜单栏 Logo 类型
-          value: image
-          options:
-            - label: 文字
-              value: text
-            - label: 图片
-              value: image
+        - $formkit: group
+          name: profile
+          value:
+            logo:
+          children:
+            - $formkit: attachment
+              name: logo
+              label: 站点资料 Logo
+        - $formkit: text
+          name: profileName
+          label: 站点资料 用户名
+          value: 大白
+
         - $formkit: checkbox
           name: show_scroll_button
           label: 显示滚动到顶部按钮
@@ -250,15 +253,6 @@ spec:
                   value: categories
                 - label: 文章标签
                   value: tags
-
-        - $formkit: group
-          name: profile
-          value:
-            logo:
-          children:
-            - $formkit: attachment
-              name: logo
-              label: 站点资料 Logo
 
         - $formkit: repeater
           name: social_media
