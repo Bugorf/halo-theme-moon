@@ -63,27 +63,52 @@
         th:classappend="${list_layout == 'grid_3' ? 'sm:line-clamp-3' : ''}"
       ></p>
     </div>
-    <div class="mt-4 flex items-center justify-start gap-2">
-      <a th:href="@{${post.owner.permalink}}" th:title="${post.owner.displayName}">
-        <img
-          th:src="${post.owner.avatar ?: #theme.assets('/images/default-avatar.svg')}"
-          th:title="${post.owner.displayName}"
-          th:alt="${post.owner.displayName}"
-          class="size-8 rounded-full border drop-shadow-sm dark:border-slate-700"
-        />
-      </a>
-      <a
-        th:href="@{${post.owner.permalink}}"
-        th:title="${post.owner.displayName}"
-        class="text-sm font-medium text-gray-900 hover:text-gray-600 dark:text-slate-100 dark:hover:text-slate-200"
-        th:if="${#strings.isEmpty(post.owner.avatar)}"
-        th:text="${post.owner.displayName}"
-      ></a>
-      <span
-        class="text-sm tabular-nums text-gray-600 dark:text-slate-300"
-        th:text="#{common.publishedOn(${#dates.format(post.spec.publishTime,'yyyy-MM-dd')})}"
-      >
-      </span>
+    <div class="mt-4 flex justify-between">
+      <div class="flex items-center gap-2">
+        <a th:href="@{${post.owner.permalink}}" th:title="${post.owner.displayName}">
+          <img
+            th:src="${post.owner.avatar ?: '/themes/halo-theme-moon/assets/images/default_avatar.jpeg'}"
+            th:title="${post.owner.displayName}"
+            th:alt="${post.owner.displayName}"
+            class="size-8 rounded-full border drop-shadow-sm dark:border-slate-700"
+          />
+        </a>
+
+        <span
+          class="text-sm tabular-nums text-gray-600 dark:text-slate-300"
+          th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"
+        >
+        </span>
+      </div>
+
+      <div class="flex flex-row items-center gap-1.5 self-end">
+        <!-- 浏览量 -->
+        <div
+          th:if="${theme.config.post.show_share_button}"
+          th:with="stats = ${siteStatsFinder.getStats()}"
+          th:attr="x-data=|share(${theme.config.post.share_items},${theme.config.post.share_item_ids})|"
+          class="group inline-flex cursor-pointer items-center gap-0.5 rounded-lg"
+        >
+          <div class="inline-flex items-center justify-center rounded-full p-2 transition-all">
+            <div class="i-tabler-eye text-lg text-gray-500"></div>
+          </div>
+
+          <span class="text-sm text-gray-500" th:text="${stats.visit}"></span>
+        </div>
+
+        <!-- 评论 -->
+        <a
+          th:if="${haloCommentEnabled}"
+          href="#comment"
+          class="group inline-flex cursor-pointer items-center gap-0.5 rounded-lg"
+        >
+          <div class="inline-flex items-center justify-center rounded-full p-2 transition-all">
+            <div class="i-tabler-message-circle text-lg text-gray-500"></div>
+          </div>
+
+          <span class="text-sm text-gray-500" th:text="${post.stats?.comment ?:0}"></span>
+        </a>
+      </div>
     </div>
   </div>
 </div>

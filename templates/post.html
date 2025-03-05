@@ -47,9 +47,14 @@
   </th:block>
   <th:block th:fragment="content">
     <div x-data="upvote('post','content.halo.run','posts')" class="rounded-xl bg-white p-4 dark:bg-slate-800">
+      <h1
+        th:if="${#strings.isEmpty(post.spec.cover)} or ${theme.config.post.title_position == 'content'}"
+        class="mt-3 text-3xl font-medium dark:text-slate-50"
+        th:text="${post.spec.title}"
+      ></h1>
       <div
         th:attr="x-data=|{name:'${post.metadata.name}'}|"
-        class="flex flex-col items-center justify-between gap-2 sm:flex-row"
+        class="mt-3 flex flex-col items-center justify-between gap-2 sm:flex-row"
       >
         <div class="flex w-full items-center justify-start gap-2">
           <a
@@ -74,22 +79,6 @@
           </div>
         </div>
         <div class="flex flex-row items-center gap-1.5 self-end">
-          <div
-            sec:authorize="isAuthenticated()"
-            th:attr="x-data=|uiPermission('${#authentication.name}','system:posts:manage')|"
-            class="flex items-center justify-between"
-            id="edit-button"
-          >
-            <template x-if="shouldDisplay">
-              <a
-                th:href="|/console/posts/editor?name=${post.metadata.name}&returnToView=true|"
-                class="inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-md border border-gray-200 bg-white px-4 py-1 text-sm font-medium leading-6 text-gray-600 shadow-sm hover:bg-gray-50 focus:shadow-none focus:outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 dark:hover:text-white"
-              >
-                <span class="i-tabler-edit text-lg transition-all group-hover:-translate-x-1"></span>
-                <span th:text="#{common.edit}"></span>
-              </a>
-            </template>
-          </div>
           <div
             th:if="${theme.config.post.show_upvote_button}"
             @click="handleUpvote(name)"
@@ -143,11 +132,6 @@
           </div>
         </div>
       </div>
-      <h1
-        th:if="${#strings.isEmpty(post.spec.cover)} or ${theme.config.post.title_position == 'content'}"
-        class="mt-3 text-3xl font-medium dark:text-slate-50"
-        th:text="${post.spec.title}"
-      ></h1>
       <div class="mt-3 flex gap-2">
         <a
           th:each="tag : ${post.tags}"
@@ -164,6 +148,25 @@
         th:classappend="${theme.config.post.content_style == 'github' ? 'markdown-body' : 'tailwind-typography'}"
         th:utext="${post.content.content}"
       ></article>
+
+      <!-- TODO: 自定义内容显示风格-->
+      <article
+        id="content"
+        class="!max-w-none break-words"
+        th:classappend="${theme.config.post.content_style == 'github' ? 'markdown-body' : 'tailwind-typography'}"
+        th:utext="${post.content.content}"
+      ></article>
+      <!-- TODO: 增加设置项，实现自定义内容-->
+      <div class="mt-6 rounded-xl bg-white p-4 shadow-lg dark:bg-gray-900">
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
+          - 作者: <a th:href="@{${post.owner.permalink}}" th:text="${post.owner.displayName}"></a>
+        </p>
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">- 原文链接: https://example.com/article</p>
+        <p class="text-m mt-2 text-gray-500 dark:text-gray-300">
+          - 本文采用 xx授权协议发布, 您可以在遵循协议的情况下进行转载、修改或使用。
+        </p>
+      </div>
+
       <div
         class="mt-10 flex flex-col sm:flex-row sm:justify-between"
         th:with="postCursor = ${postFinder.cursor(post.metadata.name)}"

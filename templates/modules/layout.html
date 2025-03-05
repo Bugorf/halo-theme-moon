@@ -26,21 +26,27 @@
       <th:block th:replace="${head}" />
     </th:block>
     <script>
-      main.initColorScheme("[[${theme.config.style.color_scheme}]]",[[${theme.config.style.enable_change_color_scheme}]])
+      main.initColorScheme(
+        "[[${theme.config.style.color_scheme}]]",
+        "[[${theme.config.style.enable_change_color_scheme}]]",
+      );
     </script>
   </head>
   <body class="bg-slate-50 dark:bg-slate-900">
     <th:block th:replace="~{modules/header}" />
+
+    <!-- 只有在主页时才显示 profile -->
+    <div class="m-4 block sm:hidden" th:if="${isHome}">
+      <th:block th:replace="~{modules/widgets/profile}" />
+    </div>
+
     <th:block th:if="${hero != null}">
       <th:block th:replace="${hero}" />
     </th:block>
     <th:block th:unless="${hero != null}">
       <th:block th:replace="~{modules/hero :: hero(isHome = true, cover = null, title = null)}" />
     </th:block>
-    <section
-      class="mx-auto mt-6 grid max-w-7xl grid-cols-1 gap-6 px-4 md:grid-cols-[1fr_18rem] lg:px-6"
-      th:classappend="${contentClass}"
-    >
+    <section class="mt-6 grid grid-cols-1 gap-6 px-4 md:grid-cols-[1fr_18rem]" th:classappend="${contentClass}">
       <div class="z-0 min-w-0">
         <th:block th:replace="${content}" />
       </div>
