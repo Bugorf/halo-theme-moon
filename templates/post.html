@@ -142,12 +142,6 @@
         >
         </a>
       </div>
-      <article
-        id="content"
-        class="!max-w-none break-words"
-        th:classappend="${theme.config.post.content_style == 'github' ? 'markdown-body' : 'tailwind-typography'}"
-        th:utext="${post.content.content}"
-      ></article>
 
       <!-- TODO: 自定义内容显示风格-->
       <article

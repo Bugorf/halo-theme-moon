@@ -84,8 +84,7 @@
       <div class="flex flex-row items-center gap-1.5 self-end">
         <!-- 浏览量 -->
         <div
-          th:if="${theme.config.post.show_share_button}"
-          th:with="stats = ${siteStatsFinder.getStats()}"
+          th:with="post = ${postFinder.getByName(post.metadata.name)}"
           th:attr="x-data=|share(${theme.config.post.share_items},${theme.config.post.share_item_ids})|"
           class="group inline-flex cursor-pointer items-center gap-0.5 rounded-lg"
         >
@@ -93,7 +92,7 @@
             <div class="i-tabler-eye text-lg text-gray-500"></div>
           </div>
 
-          <span class="text-sm text-gray-500" th:text="${stats.visit}"></span>
+          <span class="text-sm text-gray-500" th:text="${post.stats.visit}"></span>
         </div>
 
         <!-- 评论 -->
